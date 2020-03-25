@@ -1,3 +1,4 @@
-echo "Starting Server"
-# Start server
-nginx -g "daemon off;"
+#!/bin/sh
+
+nginx -t
+nginx
