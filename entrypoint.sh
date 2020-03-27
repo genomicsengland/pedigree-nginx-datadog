@@ -1,9 +1,9 @@
 #!/bin/sh
 
 
-envsubst < /dd-config.template.json > /etc/dd-config.json
+envsubst < /dd-config.template.json > /config/dd-config.json
 
-cat /etc/dd-config.json
+cat /config/dd-config.json
 
 nginx -t
 nginx
