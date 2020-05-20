@@ -1,29 +1,67 @@
-FROM nginx:1.17.3
+FROM nginx:1.17.3-alpine
+
+#Datadog opentracing
+ENV NGINX_VERSION="1.17.3"
+ENV NGINX_OPENTRACING_VERSION="v0.9.0"
+ENV NGINX_OPENTRACING_CPP_VERSION="v1.5.1"
+ENV DATADOG_OPENTRACING_VERSION="v1.1.4"
+
+RUN \
+     apk update && \
+     apk upgrade && \
+     apk add curl && \
+     apk add curl-dev protobuf-dev pcre-dev openssl-dev && \
+     apk add build-base cmake autoconf automake git msgpack-c-dev
+
+RUN  git clone -b $NGINX_OPENTRACING_CPP_VERSION https://github.com/opentracing/opentracing-cpp.git
+
+RUN  cd opentracing-cpp && \
+     mkdir .build && cd .build && ls && \
+     cmake -DCMAKE_BUILD_TYPE=Release -DBUILD_TESTING=OFF .. && ls && \
+     make && make install
+
+RUN git clone -b $DATADOG_OPENTRACING_VERSION https://github.com/DataDog/dd-opentracing-cpp
+
+RUN  cd dd-opentracing-cpp && \
+    mkdir .build && cd .build && \
+    cmake -DBUILD_SHARED_LIBS=1 -DCMAKE_BUILD_TYPE=Release -DBUILD_TESTING=OFF .. && \
+    make && make install
 
 
-RUN  apt-get update \
-  && apt-get install -y wget \
-  && rm -rf /var/lib/apt/lists/*
+RUN  git clone https://github.com/opentracing-contrib/nginx-opentracing.git
+RUN  ls -l /nginx-opentracing/opentracing
+RUN  git clone -b release-1.17.3 https://github.com/nginx/nginx.git
+RUN \
+     cd nginx && \
+     auto/configure \
+        --with-compat \
+        --add-dynamic-module=/nginx-opentracing/opentracing \
+        --with-debug && \
+     make modules && \
+     ls -l objs && \
+     echo Made
+RUN  ls -l /usr/local/lib
+RUN  ls -l /nginx/objs    
 
-#Install nginx-opentracing
-RUN get_latest_release() { \
-        wget -qO- "https://api.github.com/repos/$1/releases/latest" | grep '"tag_name":' | sed -E 's/.*"([^"]+)".*/\1/'; \
-    } && \
-    NGINX_VERSION=1.17.3 && \
-    OPENTRACING_NGINX_VERSION="$(get_latest_release opentracing-contrib/nginx-opentracing)" && \
-    DD_OPENTRACING_CPP_VERSION="$(get_latest_release DataDog/dd-opentracing-cpp)" && \
-    # Install NGINX plugin for OpenTracing
-    wget https://github.com/opentracing-contrib/nginx-opentracing/releases/download/${OPENTRACING_NGINX_VERSION}/linux-amd64-nginx-${NGINX_VERSION}-ngx_http_module.so.tgz && \
-    tar zxf linux-amd64-nginx-${NGINX_VERSION}-ngx_http_module.so.tgz -C /usr/lib/nginx/modules && \
-    # Install Datadog Opentracing C++ Plugin
-    wget https://github.com/DataDog/dd-opentracing-cpp/releases/download/${DD_OPENTRACING_CPP_VERSION}/linux-amd64-libdd_opentracing_plugin.so.gz && \
-    gunzip linux-amd64-libdd_opentracing_plugin.so.gz -c > /usr/local/lib/libdd_opentracing_plugin.so
+#Uncomment when multi-stage builds work
+#FROM nginx:1.17.3-alpine
+
+#RUN \
+#     apk update && \
+#     apk upgrade && \
+#     apk add curl && \
+#     apk add curl-dev protobuf-dev pcre-dev openssl-dev
+
+#COPY --from=builder /usr/local/lib /usr/local/lib
+#COPY --from=builder /usr/local/lib64 /usr/local/lib64
+#COPY --from=builder /nginx/objs/ngx_http_opentracing_module.so /etc/nginx/modules/ngx_http_opentracing_module.so
+RUN cp nginx/objs/ngx_http_opentracing_module.so /etc/nginx/modules/ngx_http_opentracing_module.so
+
 
 
 USER root
 RUN mkdir -p /var/cache/nginx /var/run /var/log/nginx
 RUN chmod -R 777 /var/cache/nginx /var/run /var/log/nginx /etc/nginx /etc/nginx/nginx.conf
-
 
 COPY assets /usr/share/nginx/html
 
@@ -36,12 +74,25 @@ RUN  chgrp -R 0 /config && chmod -R g+rwX /config
 
 EXPOSE 8080 80 443
 
+RUN cp nginx/objs/ngx_http_opentracing_module.so /etc/nginx/modules/ngx_http_opentracing_module.so
+
+
 # Prepare for Entrypoint
 COPY entrypoint.sh entrypoint.sh
 RUN chmod g+rwx entrypoint.sh
 
+RUN chown -R nginx:nginx /usr/share/nginx/html && chmod -R 755 /usr/share/nginx/html && \
+        chown -R nginx:nginx /var/cache/nginx && \
+        chown -R nginx:nginx /var/log/nginx && \
+        chown -R nginx:nginx /etc/nginx/conf.d && \
+	chown -R nginx:nginx /config && \
+	chown -R nginx:nginx /etc/nginx/modules
+
+RUN touch /var/run/nginx.pid && \
+        chown -R nginx:nginx /var/run/nginx.pid
+
 RUN addgroup nginx root
-#USER nginx
+USER nginx
 
 ENTRYPOINT "./entrypoint.sh"
 

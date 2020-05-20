@@ -10,7 +10,7 @@ pipeline {
         PUSH_SECRET = credentials('PUSH_SECRET')
         PROXY_PASS_BUILD = "http:\\/\\/kong-docker.kong-development-environment.svc:8000"
         PROXY_PASS_E2E = "http:\\/\\/kong-docker.prod-kong-deployment.svc:8000"
-        VERSION = "1.2.1"
+        VERSION = "1.2.2"
         scmVars = checkout scm
         gitBranch = sh(
                 script: "echo ${scmVars.GIT_BRANCH} | cut -d '/' -f2",
