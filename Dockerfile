@@ -70,6 +70,7 @@ COPY nginx.conf /etc/nginx/nginx.conf
 ADD dd-config.template.json dd-config.template.json
 
 RUN mkdir config
+COPY dd-config.template.json /config/dd-config.json
 RUN  chgrp -R 0 /config && chmod -R g+rwX /config
 
 EXPOSE 8080 80 443
