@@ -74,18 +74,18 @@ RUN  chgrp -R 0 /config && chmod -R g+rwX /config
 
 EXPOSE 8080 80 443
 
-RUN cp nginx/objs/ngx_http_opentracing_module.so /etc/nginx/modules/ngx_http_opentracing_module.so
-
 
 # Prepare for Entrypoint
 COPY entrypoint.sh entrypoint.sh
 RUN chmod g+rwx entrypoint.sh
+RUN chmod og+x entrypoint.sh
 
 RUN chown -R nginx:nginx /usr/share/nginx/html && chmod -R 755 /usr/share/nginx/html && \
         chown -R nginx:nginx /var/cache/nginx && \
         chown -R nginx:nginx /var/log/nginx && \
         chown -R nginx:nginx /etc/nginx/conf.d && \
 	chown -R nginx:nginx /config && \
+	chown -R nginx:nginx dd-config.template.json && \
 	chown -R nginx:nginx /etc/nginx/modules
 
 RUN touch /var/run/nginx.pid && \
