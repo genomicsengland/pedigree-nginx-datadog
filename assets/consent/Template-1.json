@@ -1,0 +1,2232 @@
+{
+  "item": [
+    {
+      "id": "S1",
+      "type": "Section",
+      "visible": true,
+      "item": [
+        {
+          "id": "P1",
+          "type": "NGIS-Panel",
+          "initialVisiblePanelSteps": [
+            "PS1",
+            "PS2",
+            "PS3",
+            "PS4",
+            "PS5"
+          ],
+          "panelsteps": [
+            {
+              "id": "PS1",
+              "label": "Patient choice category",
+              "type": "NGIS-PanelStep",
+              "summaryButtonAction": [
+                {
+                  "eventName": "ngis-panelstep/summaryclick",
+                  "action": "ngis-panel/move-to-panel-step",
+                  "data": {
+                    "stepId": "PS1"
+                  }
+                },
+                {
+                  "eventName": "questionnaire/clear-ensuing-values",
+                  "action": "questionnaire/clear-ensuing-values",
+                  "actionData": {
+                    "id": "Q1"
+                  }
+                }
+              ],
+              "summaryValueProvider": {
+                "type": "GetElementProperty",
+                "elementId": "Q1",
+                "property": "selectedValue"
+              },
+              "item": [
+                {
+                  "id": "Lbl1",
+                  "labelText": "Patient choice category ",
+                  "type": "Label",
+                  "bold": true,
+                  "labelStyle": "header"
+                },
+                {
+                  "id": "Q1",
+                  "labelText": "",
+                  "type": "NGIS-RadioButton",
+                  "required": true,
+                  "readOnly": false,
+                  "initialValue": null,
+                  "optionsOrientation": "Vertical",
+                  "options": [
+                    {
+                      "label": "Adult (With Capacity)",
+                      "value": "Adult (With Capacity)",
+                      "disabled": false
+                    },
+                    {
+                      "label": "Adult (Without Capacity)",
+                      "value": "Adult (Without Capacity)",
+                      "disabled": false
+                    },
+                    {
+                      "label": "Child",
+                      "value": "Child",
+                      "disabled": false
+                    }
+                  ],
+                  "singleDispatchAction": true,
+                  "actions": [
+                    {
+                      "eventName": "ngis-radio/click",
+                      "action": "ngis-panel/move-next",
+                      "actionData": {
+                        "parentPanelId": "P1"
+                      }
+                    },
+                    {
+                      "eventName": "app/update_global_variable",
+                      "action": "app/update_global_variable",
+                      "separateDispatch": true,
+                      "actionData": {
+                        "data": [
+                          {
+                            "variables": [
+                              {
+                                "name": "$SubjectInfo1",
+                                "value": "Has the patient"
+                              },
+                              {
+                                "name": "$SubjectInfo2",
+                                "value": "Patient"
+                              },
+                              {
+                                "name": "$SubjectInfo3",
+                                "value": "patient"
+                              },
+                              {
+                                "name":"$FileTypeOptions", 
+                                "value": "Record of Discussion Form|Deceased Form"
+                              }
+                            ],
+                            "condition": [
+                              {
+                                "elementId": "Q1",
+                                "operator": "=",
+                                "property": "selectedValue",
+                                "value": "Adult (With Capacity)"
+                              }
+                            ]
+                          },
+                          {
+                            "variables": [
+                              {
+                                "name": "$SubjectInfo1",
+                                "value": "Has the consultee"
+                              },
+                              {
+                                "name": "$SubjectInfo2",
+                                "value": "Consultee"
+                              },
+                              {
+                                "name": "$SubjectInfo3",
+                                "value": "consultee"
+                              },
+                              {
+                                "name":"$FileTypeOptions", 
+                                "value": "Record of Discussion Form|Deceased Form|Consultee Form"
+                              }
+                            ],
+                            "condition": [
+                              {
+                                "elementId": "Q1",
+                                "operator": "=",
+                                "property": "selectedValue",
+                                "value": "Adult (Without Capacity)"
+                              }
+                            ]
+                          },
+                          {
+                            "variables": [
+                              {
+                                "name": "$SubjectInfo1",
+                                "value": "Have the parent(s) / guardian"
+                              },
+                              {
+                                "name": "$SubjectInfo2",
+                                "value": "Parent(s) / guardian"
+                              },
+                              {
+                                "name": "$SubjectInfo3",
+                                "value": "patient's parent(s) / guardian"
+                              },
+                              {
+                                "name":"$FileTypeOptions", 
+                                "value": "Record of Discussion Form|Deceased Form|Assent Form"
+                              }
+                            ],
+                            "condition": [
+                              {
+                                "elementId": "Q1",
+                                "operator": "=",
+                                "property": "selectedValue",
+                                "value": "Child"
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "id": "PS2",
+              "label": "Test Type",
+              "type": "NGIS-PanelStep",
+              "summaryButtonAction": [
+                {
+                  "eventName": "ngis-panelstep/summaryclick",
+                  "action": "ngis-panel/move-to-panel-step",
+                  "data": {
+                    "stepId": "PS2"
+                  }
+                },
+                {
+                  "eventName": "questionnaire/clear-ensuing-values",
+                  "action": "questionnaire/clear-ensuing-values",
+                  "actionData": {
+                    "id": "Q2"
+                  }
+                },
+                {
+                  "eventName": "questionnaire/clear-validation-result",
+                  "action": "questionnaire/clear-validation-result",
+                  "actionData": {
+                    "items": [
+                      "PS3"
+                    ]
+                  }
+                }
+
+              ],
+              "summaryValueProvider": {
+                "type": "GetElementProperty",
+                "elementId": "Q2",
+                "property": "selectedValue"
+              },
+              "item": [
+                {
+                  "id": "Lbl2",
+                  "labelText": "Test type ",
+                  "type": "Label",
+                  "bold": true,
+                  "labelStyle": "header"
+                },
+                {
+                  "id": "Q2",
+                  "labelText": "",
+                  "type": "NGIS-RadioButton",
+                  "required": true,
+                  "readOnly": false,
+                  "initialValue": null,
+                  "optionsOrientation": "Vertical",
+                  "options": [
+                    {
+                      "label": "Rare & inherited diseases – WGS",
+                      "value": "Rare & inherited diseases – WGS",
+                      "disabled": false
+                    },
+                    {
+                      "label": "Cancer (paired tumour normal) – WGS",
+                      "value": "Cancer (paired tumour normal) – WGS",
+                      "disabled": false
+                    },
+                    {
+                      "label": "Rare & inherited diseases – Non-WGS (Not currently available)",
+                      "value": "Rare & inherited diseases – Non-WGS (Not currently available)",
+                      "disabled": true
+                    },
+                    {
+                      "label": "Cancer (tumour only) – Non-WGS (Not currently available)",
+                      "value": "Cancer (tumour only) – Non-WGS (Not currently available)",
+                      "disabled": true
+                    },
+                    {
+                      "label": "Cancer (paired tumour) – Non-WGS (Not currently available)",
+                      "value": "Cancer (paired tumour) – Non-WGS (Not currently available)",
+                      "disabled": true
+                    },
+                    {
+                      "label": "Others (Not currently available)",
+                      "value": "Others (Not currently available)",
+                      "disabled": true
+                    }
+                  ],
+                  "actions": [
+                    {
+                      "eventName": "ngis-radio/click",
+                      "action": "ngis-panel/move-next",
+                      "actionData": {
+                        "parentPanelId": "P1"
+                      }
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "id": "PS3",
+              "label": "Recorded By",
+              "type": "NGIS-PanelStep",
+              "summaryButtonAction": [
+                {
+                  "eventName": "ngis-panelstep/summaryclick",
+                  "action": "ngis-panel/move-to-panel-step",
+                  "data": {
+                    "stepId": "PS3"
+                  }
+                },
+                {
+                  "eventName": "questionnaire/clear-ensuing-values",
+                  "action": "questionnaire/clear-ensuing-values",
+                  "actionData": {
+                    "id": "PS3-1"
+                  }
+                }
+              ],
+              "summaryValueProvider": {
+                "type": "BasicTemplate",
+                "template": [
+                  "Recorded by : @@PS3-1:value"
+                ]
+              },
+              "item": [
+                {
+                  "id": "ps3-lbl1",
+                  "labelText": "Recorded by ",
+                  "type": "Label",
+                  "bold": true,
+                  "labelStyle": "header"
+                },
+                {
+                  "id": "ps3-vs-1",
+                  "type": "ValidationSummary",
+                  "validationGroupId": "PS3"
+                },
+                {
+                  "id": "L1",
+                  "type": "Layout",
+                  "layoutMode": "Horizontal",
+                  "item": [
+                    {
+                      "id": "PS3-1",
+                      "labelText": "Recording clinician name",
+                      "text": "Current value",
+                      "type": "NGIS-TextInput",
+                      "required": true,
+                      "requiredIcon": true,
+                      "readOnly": false,
+                      "maxLength": 100,
+                      "placeholder": "e.g. John Doe",
+                      "initial": "",
+                      "labelOrientation": "top"
+                    },
+                    {
+                      "id": "PS3-2",
+                      "labelText": "Patient Hospital Number",
+                      "text": "Current value",
+                      "type": "TextInput",
+                      "required": true,
+                      "readOnly": false,
+                      "maxLength": 100,
+                      "placeholder": null,
+                      "initial": "",
+                      "labelOrientation": "top"
+                    }
+                  ]
+                },
+                {
+                  "id": "L2",
+                  "type": "Layout",
+                  "layoutMode": "Vertical",
+                  "item": [
+                    {
+                      "id": "PS3-3",
+                      "labelText": "Responsible clinician name",
+                      "text": "Current value",
+                      "type": "TextInput",
+                      "required": true,
+                      "readOnly": false,
+                      "maxLength": 100,
+                      "placeholder": "e.g. John Doe",
+                      "initial": "",
+                      "labelOrientation": "top"
+                    },
+                    {
+                      "id": "PS3-4",
+                      "labelText": "Documents scanned and checked by:",
+                      "text": "Current value",
+                      "type": "NGIS-TextInput",
+                      "required": true,
+                      "readOnly": false,
+                      "maxLength": 100,
+                      "placeholder": "e.g. JohnDoe@nhs.net",
+                      "initial": "",
+                      "labelOrientation": "top",
+                      "infoText": "Can be used to record who scanned and checked the quality of the documents to be uploaded"
+                    }
+                  ]
+                },
+                {
+                  "id": "PS3-5",
+                  "alertType": "warning",
+                  "type": "Alert",
+                  "visible": true,
+                  "messages": [
+                    "You are the appointed administrator for ensuring that the Patient's Genomic Test decisions are accurately reproduced in this digital form. Please ensure that you take care to enter the answers as described on the paper record of decisions attached."
+                  ]
+                },
+                {
+                  "id" : "PS3-6A", 
+                  "text" : "Current value",  
+                  "type" : "file", 
+                  "fileTypeOptions" :"$FileTypeOptions",
+                  "readOnly" : false, 
+                  "comboBoxItems" : ["Record of Discussion Form", "Deceased Form"],
+                  "initial" : "",
+                  "labelOrientation" : "InLine",
+                  "dateInputLabel": "Date of Signature",
+                  "minimumDateMessage" : "Please enter a date on or after the date of birth",
+                  "requiredDateMessage" : "Date of birth is required."
+  
+                },
+                {
+                  "id": "PS3-6",
+                  "labelText": "Form to follow",
+                  "type": "Button",
+                  "readOnly": false,
+                  "visibleWhen": [
+                    {
+                        "elementId": "PS3-6A",
+                        "operator": "length=",
+                        "property":"rootProperty:uploadedFiles",
+                        "value": "0"
+                    }
+                  ],
+                  "actions": [
+                    {
+                      "eventName": "button/validate",
+                      "action": "validator/validate",
+                      "actionData": {
+                        "validatorId": [
+                          "PS3-V1"
+                        ]
+                      }
+                    },
+                    {
+                      "eventName": "ngis-radio/click",
+                      "action": "ngis-panel/move-next",
+                      "actionData": {
+                        "parentPanelId": "P1",
+                        "runIf": [
+                          {
+                            "validationGroup": "PS3",
+                            "operator": "=",
+                            "property": "isValid",
+                            "value": true
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                },
+                {
+                  "id": "PS3-6C",
+                  "labelText": "Continue",
+                  "type": "Button",
+                  "readOnly": false,
+                  "visibleWhen": [
+                    {
+                        "elementId": "PS3-6A",
+                        "operator": "length!=",
+                        "property":"rootProperty:uploadedFiles",
+                        "value": "0"
+                    }
+                  ],
+                  "enableWhen": [
+                    "AND",
+                    {
+                        "elementId": "PS3-6A",
+                        "operator": "length!=",
+                        "property":"rootProperty:uploadedFiles",
+                        "value": "0"
+                    },
+                    {
+                      "elementId": "PS3-6A",
+                      "operator": "=",
+                      "property":"rootProperty:isValid",
+                      "value": true
+                    }
+                    
+                  ],
+                  "actions": [
+                    {
+                      "eventName": "button/validate",
+                      "action": "validator/validate",
+                      "actionData": {
+                        "validatorId": [
+                          "PS3-V1"
+                        ]
+                      }
+                    },
+                    {
+                      "eventName": "ngis-radio/click",
+                      "action": "ngis-panel/move-next",
+                      "actionData": {
+                        "parentPanelId": "P1",
+                        "runIf": [
+                          {
+                            "validationGroup": "PS3",
+                            "operator": "=",
+                            "property": "isValid",
+                            "value": true
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                },
+                {
+                  "id": "PS3-V1",
+                  "type": "Validator",
+                  "validationGroup": "PS3",
+                  "validationData": [
+                    {
+                      "type": "required",
+                      "targetItemId": "PS3-1",
+                      "validationMessage": "Please complete the required field Clinician Name (Admin support user ID is optional):"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "id": "PS4",
+              "label": "Patient choices",
+              "type": "NGIS-PanelStep",
+              "item": [
+                {
+                  "id": "PS4-A-L1",
+                  "labelText": "$SubjectInfo1 had the opportunity to read and discuss information about genomic testing and agreed to the genomic test? ",
+                  "type": "Label",
+                  "replaceVariables": true,
+                  "labelStyle": "questionText"
+                },
+                {
+                  "id": "PS4-A-Q1",
+                  "labelText": "",
+                  "type": "NGIS-RadioButton",
+                  "required": true,
+                  "readOnly": false,
+                  "initialValue": null,
+                  "replaceVariables": true,
+                  "optionsOrientation": "Vertical",
+                  "options": [
+                    {
+                      "label": "$SubjectInfo2 has agreed to test",
+                      "value": "$SubjectInfo2 has agreed to test",
+                      "disabled": false
+                    },
+                    {
+                      "label": "$SubjectInfo2 conversation happened; form to follow",
+                      "value": "$SubjectInfo2 conversation happened; form to follow",
+                      "disabled": false
+                    },
+                    {
+                      "label": "$SubjectInfo2 changed their mind about the clinical test",
+                      "value": "$SubjectInfo2 changed their mind about the clinical test",
+                      "disabled": false
+                    },
+                    {
+                      "label": "Clinician has agreed to the test (in the Patient's best interests)",
+                      "value": "Clinician has agreed to the test (in the Patient's best interests)",
+                      "disabled": false
+                    }
+                  ],
+                  "actions": [
+                    {
+                      "eventName": "questionnaire/clear-ensuing-values",
+                      "action": "questionnaire/clear-ensuing-values",
+                      "actionData": {
+                        "id": "PS4-A-Q2"
+                      }
+                    },
+                    {
+                      "eventName": "ngis-radiobutton/set-selected-data",
+                      "action": "ngis-radiobutton/set-selected-data",
+                      "actionData": {
+                        "id":"PS4-A-Q2",
+                        "selectedValue":"Yes",
+                        "selectedIndex":"0",
+                        "condition":[
+                          {
+                            "elementId": "PS4-A-Q1",
+                            "operator": "=",
+                            "property": "selectedIndex",
+                            "value": "0"
+                          }
+                        ] 
+                      }
+                                          
+                    },
+                    {
+                      "eventName": "ngis-radiobutton/set-selected-data",
+                      "action": "ngis-radiobutton/set-selected-data",
+                      "actionData": {
+                        "id":"PS4-A-Q4",
+                        "selectedValue":"Yes",
+                        "selectedIndex":"0",
+                        "condition":[
+                          {
+                            "elementId": "PS4-A-Q1",
+                            "operator": "=",
+                            "property": "selectedIndex",
+                            "value": "0"
+                          }
+                        ] 
+                      }                 
+                    }
+                  ]
+                },
+                {
+                  "id": "PS4-A-Q2",
+                  "labelText": "Has research participation been discussed?",
+                  "type": "NGIS-RadioButton",
+                  "required": true,
+                  "readOnly": false,
+                  "initialValue": null,
+                  "optionsOrientation": "Horizontal",
+                  "options": [
+                    {
+                      "label": "Yes",
+                      "value": "Yes",
+                      "disabled": false
+                    },
+                    {
+                      "label": "No",
+                      "value": "No",
+                      "disabled": false
+                    }
+                  ],
+                  "visibleWhen": [
+                    {
+                      "elementId": "PS4-A-Q1",
+                      "operator": "=",
+                      "property": "selectedIndex",
+                      "value": "0"
+                    }
+                  ],
+                  "actions": [
+                    {
+                      "eventName": "questionnaire/clear-values",
+                      "action": "questionnaire/clear-values",
+                      "actionData": {
+                        "items": [
+                          "PS4-A-Q4",
+                          "PS4-A-Q5"
+                        ]
+                      }
+                    }
+                  ]
+                },
+                {
+                  "id": "PS4-A-Q4",
+                  "labelText": "The patient agrees that their data and samples may be used for research, separate to NHS care.",
+                  "type": "NGIS-RadioButton",
+                  "required": true,
+                  "readOnly": false,
+                  "initialValue": null,
+                  "replaceVariables": true,
+                  "optionsOrientation": "Horizontal",
+                  "options": [
+                    {
+                      "label": "Yes",
+                      "value": "Yes",
+                      "disabled": false
+                    },
+                    {
+                      "label": "No",
+                      "value": "No",
+                      "disabled": false
+                    }
+                  ],
+                  "visibleWhen": [
+                    {
+                      "elementId": "PS4-A-Q2",
+                      "operator": "=",
+                      "property": "selectedValue",
+                      "value": "Yes"
+                    }
+                  ],
+                  "actions": []
+                },
+                {
+                  "id": "PS4-A-Q5",
+                  "labelText": "Why has research participation not been discussed?",
+                  "type": "NGIS-RadioButton",
+                  "required": true,
+                  "readOnly": false,
+                  "initialValue": null,
+                  "optionsOrientation": "Vertical",
+                  "options": [
+                    {
+                      "label": "Inappropriate to have discussion",
+                      "value": "Inappropriate to have discussion",
+                      "disabled": false
+                    },
+                    {
+                      "label": "Patient would like to revisit at a later date",
+                      "value": "Patient would like to revisit at a later date",
+                      "disabled": false
+                    },
+                    {
+                      "label": "Patient lacks capacity and no consultee available",
+                      "value": "Patient lacks capacity and no consultee available",
+                      "disabled": false
+                    },
+                    {
+                      "label": "Other",
+                      "value": "Other",
+                      "disabled": false
+                    }
+                  ],
+                  "visibleWhen": [
+                    {
+                      "elementId": "PS4-A-Q2",
+                      "operator": "=",
+                      "property": "selectedValue",
+                      "value": "No"
+                    }
+                  ],
+                  "actions": []
+                },
+                {
+                  "id" : "PS4-A-Clink-1", 
+                  "type" : "collapsibleLink", 
+                  "openMessage":"Show additional findings questions",
+                  "closeMessage":"Hide additional findings questions",
+                  "visibleWhen": [
+                    "AND",
+                    {
+                      "elementId": "PS4-A-Q1",
+                      "operator": "=",
+                      "property": "selectedIndex",
+                      "value": "0"
+                    },
+                    {
+                      "elementId": "PS4-A-Q2",
+                      "operator": "=",
+                      "property": "selectedIndex",
+                      "value": "0"
+                    }
+                  ],
+                  "item" : [
+                      {
+                          "id": "PS4-CLink-A1",
+                          "messages": ["Additional finding research options are currently unavailable until a later date in the program."],
+                          "type": "alert",
+                          "alertType": "warning"
+                      }
+                  ]
+                },
+                {
+                  "id": "PS4-Warn-1",
+                  "messages": ["If you change this choice it will also apply to any genomic tests the patient has previously had. This will also apply to any future tests, unless they change their mind."],
+                  "type": "alert",
+                   "alertType": "warning",
+                   "visibleWhen": [
+                    {
+                      "elementId": "PS4-A-Q4",
+                      "operator": "=",
+                      "property": "selectedIndex",
+                      "value": "1"
+                    }
+                  ]
+                },
+                {
+                  "id": "PS4-A-Q6",
+                  "alertType": "warning",
+                  "type": "Alert",
+                  "messages": [
+                    "All patients who receive genomic tests should be offered the opportunity to participate in research where appropriate."
+                  ],
+                  "visibleWhen": [
+                    {
+                      "elementId": "PS4-A-Q2",
+                      "operator": "=",
+                      "property": "selectedIndex",
+                      "value": "1"
+                    }
+                  ]
+                },
+                {
+                  "id": "PS4-A-Q7",
+                  "alertType": "warning",
+                  "type": "Alert",
+                  "messages": [
+                    "Did you mean to select ‘Patient changed their mind about the clinical test’? If so, please consider whether continuing with this test request is appropriate."
+                  ],
+                  "visibleWhen": [
+                    {
+                      "elementId": "PS4-A-Q1",
+                      "operator": "=",
+                      "property": "selectedIndex",
+                      "value": "2"
+                    }
+                  ]
+                },    
+                {
+                  "id": "PS4-Warn-2",
+                  "messages": ["You have selected \"No\" to participation in research. Please ensure the patient is aware they might be contacted in the future about other research opportunities."],
+                  "type": "alert",
+                   "alertType": "warning",
+                   "visibleWhen": [
+                    {
+                      "elementId": "PS4-A-Q4",
+                      "operator": "=",
+                      "property": "selectedIndex",
+                      "value": "1"
+                    }
+                  ]
+                },            
+                {
+                  "id": "PS4-Warn-3",
+                  "messages": ["Please only edit this record if you are correcting an erroneous entry. If the patient has initiated withdrawal from research, please use the Withdrawal workflow, found via the History tab."],
+                  "type": "alert",
+                   "alertType": "warning",
+                   "visibleWhen": [
+                    {
+                      "elementId": "PS4-A-Q4",
+                      "operator": "=",
+                      "property": "selectedIndex",
+                      "value": "1"
+                    }
+                  ]
+                },
+                {
+                  "id": "PS4-B1",
+                  "labelText": "Continue",
+                  "type": "Button",
+                  "disabled": false,
+                  "actions": [
+                    {
+                      "eventName": "app/update-component-property",
+                      "action": "app/update-component-property",
+                      "actionData": [
+                        {
+                          "id": "S1",
+                          "property": "visible",
+                          "value": false
+                        },
+                        {
+                          "id": "S2",
+                          "property": "visible",
+                          "value": true,
+                          "condition": [
+                            {
+                              "elementId": "Q1",
+                              "operator": "=",
+                              "property": "selectedValue",
+                              "value": "Adult (With Capacity)"
+                            }
+                          ]
+                        },
+                        {
+                          "id": "S3",
+                          "property": "visible",
+                          "value": true,
+                          "condition": [
+                            {
+                              "elementId": "Q1",
+                              "operator": "=",
+                              "property": "selectedValue",
+                              "value": "Child"
+                            }
+                          ]
+                        },
+                        {
+                          "id": "S4",
+                          "property": "visible",
+                          "value": true,
+                          "condition": [
+                            {
+                              "elementId": "Q1",
+                              "operator": "=",
+                              "property": "selectedValue",
+                              "value": "Adult (Without Capacity)"
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "eventName": "ngis-panel/move-to-panel-step",
+                      "action": "ngis-panel/move-to-panel-step",
+                      "actionData": {
+                        "parentPanelId": "P2",
+                        "panelIndex": "P2S2",
+                        "condition": [
+                          "AND",
+                          {
+                            "elementId": "Q1",
+                            "operator": "=",
+                            "property": "selectedValue",
+                            "value": "Adult (With Capacity)"
+                          },
+                          {
+                            "elementId": "PS3-6A",
+                            "operator": "length=",
+                            "property":"rootProperty:uploadedFiles",
+                            "value": "0"
+                          }
+                        ]
+                      }
+                    },
+                    {
+                      "eventName": "ngis-panel/move-to-panel-step",
+                      "action": "ngis-panel/move-to-panel-step",
+                      "actionData": {
+                        "parentPanelId": "P2",
+                        "panelIndex": "P2S3",
+                        "condition": [
+                          "AND",
+                          {
+                            "elementId": "Q1",
+                            "operator": "=",
+                            "property": "selectedValue",
+                            "value": "Adult (With Capacity)"
+                          },
+                          {
+                            "elementId": "PS3-6A",
+                            "operator": "length!=",
+                            "property":"rootProperty:uploadedFiles",
+                            "value": "0"
+                          }
+                        ]
+                      }
+                    },
+                    {
+                      "eventName": "ngis-panel/move-to-panel-step",
+                      "action": "ngis-panel/move-to-panel-step",
+                      "actionData": {
+                        "parentPanelId": "P3",
+                        "panelIndex": "P3S2",
+                        "condition": [
+                          {
+                            "elementId": "Q1",
+                            "operator": "=",
+                            "property": "selectedValue",
+                            "value": "Child"
+                          }
+                        ]
+                      }
+                    },
+                    {
+                      "eventName": "ngis-panel/move-to-panel-step",
+                      "action": "ngis-panel/move-to-panel-step",
+                      "actionData": {
+                        "parentPanelId": "P4",
+                        "panelIndex": "P4S2",
+                        "condition": [
+                          "AND",
+                          {
+                            "elementId": "Q1",
+                            "operator": "=",
+                            "property": "selectedValue",
+                            "value": "Adult (Without Capacity)"
+                          }
+                        ]
+                      }
+                    }
+                  ],
+                  "enableWhen": [
+                    "OR",
+                    {
+                      "elementId": "PS4-A-Q1",
+                      "operator": "contains",
+                      "property": "selectedIndex",
+                      "value": [
+                        "1",
+                        "2",
+                        "3"
+                      ]
+                    },
+                    {
+                      "elementId": "PS4-A-Q4",
+                      "operator": "contains",
+                      "property": "selectedIndex",
+                      "value": [
+                        "0",
+                        "1"
+                      ]
+                    },
+                    {
+                      "elementId": "PS4-A-Q5",
+                      "operator": "contains",
+                      "property": "selectedIndex",
+                      "value": [
+                        "0",
+                        "1",
+                        "2",
+                        "3"
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "id": "PS5",
+              "label": "Patient signature",
+              "type": "NGIS-PanelStep",
+              "visibleWhen": [
+                "AND",
+                {
+                  
+                  "elementId": "Q1",
+                  "operator": "contains",
+                  "property": "selectedValue",
+                  "value": [
+                    "Adult (With Capacity)",
+                    null
+                  ]
+                },
+                {
+                  "elementId": "PS3-6A",
+                  "operator": "length=",
+                  "property":"rootProperty:uploadedFiles",
+                  "value": "0"
+                }
+              ],
+              "item": [
+                {
+                  "id": "PS5-Q1",
+                  "labelText": "TO be developed ",
+                  "type": "Label",
+                  "labelOrientation": "InLine"
+                }
+              ]
+            },
+            {
+              "id": "PS6",
+              "label": "Consultee attestation",
+              "type": "NGIS-PanelStep",
+              "visibleWhen": [
+                {
+                  "elementId": "Q1",
+                  "operator": "=",
+                  "property": "selectedValue",
+                  "value": "Adult (Without Capacity)"
+                }
+              ],
+              "item": [
+                {
+                  "id": "PS6-Q1",
+                  "labelText": "TO be developed ",
+                  "type": "Label",
+                  "labelOrientation": "InLine"
+                }
+              ]
+            },
+            {
+              "id": "PS7",
+              "label": "Consultee signature",
+              "type": "NGIS-PanelStep",
+              "visibleWhen": [
+                "AND",
+                {
+                  "elementId": "Q1",
+                  "operator": "=",
+                  "property": "selectedValue",
+                  "value": "Adult (Without Capacity)"
+                },
+                {
+                  "elementId": "PS3-6A",
+                  "operator": "length=",
+                  "property":"rootProperty:uploadedFiles",
+                  "value": "0"
+                }
+              ],
+              "item": [
+                {
+                  "id": "PS7-Q1",
+                  "labelText": "TO be developed ",
+                  "type": "Label",
+                  "labelOrientation": "InLine"
+                }
+              ]
+            },
+            {
+              "id": "PS8",
+              "label": "Child assent",
+              "type": "NGIS-PanelStep",
+              "visibleWhen": [
+                {
+                  "elementId": "Q1",
+                  "operator": "=",
+                  "property": "selectedValue",
+                  "value": "Child"
+                }
+              ],
+              "item": [
+                {
+                  "id": "PS8-Q1",
+                  "labelText": "TO be developed ",
+                  "type": "Label",
+                  "labelOrientation": "InLine"
+                }
+              ]
+            },
+            {
+              "id": "PS9",
+              "label": "Parent/Guardian signature",
+              "type": "NGIS-PanelStep",
+              "visibleWhen": [
+                "AND",
+                {
+                  "elementId": "Q1",
+                  "operator": "=",
+                  "property": "selectedValue",
+                  "value": "Child"
+                },
+                {
+                  "elementId": "PS3-6A",
+                  "operator": "length=",
+                  "property":"rootProperty:uploadedFiles",
+                  "value": "0"
+                }
+              ],
+              "item": [
+                {
+                  "id": "PS9-Q1",
+                  "labelText": "TO be developed ",
+                  "type": "Label",
+                  "labelOrientation": "InLine"
+                }
+              ]
+            },
+            {
+              "id": "PS10",
+              "label": "Review and submit",
+              "type": "NGIS-PanelStep",
+              "visibleWhen": [
+                {
+                    "elementId": "PS3-6A",
+                    "operator": "length!=",
+                    "property":"rootProperty:uploadedFiles",
+                    "value": "0"
+                }
+              ],
+              "item": [
+                {
+                  "id": "PS10-Q1",
+                  "labelText": "Not shown ",
+                  "type": "Label",
+                  "labelOrientation": "InLine"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "S2",
+      "type": "Section",
+      "visible": false,
+      "current": "P2S1",
+      "item": [
+        {
+          "id": "P2",
+          "type": "NGIS-Panel",
+          "initialVisiblePanelSteps": [
+            "P2S1",
+            "P2S2",
+            "P2S3"
+          ],
+          "panelsteps": [
+            {
+              "id": "P2S1",
+              "label": "Patient choices",
+              "type": "NGIS-PanelStep",
+              "summaryButtonAction": [
+                {
+                  "eventName": "app/update-component-property",
+                  "action": "app/update-component-property",
+                  "actionData": [
+                    {
+                      "id": "S1",
+                      "property": "visible",
+                      "value": true
+                    },
+                    {
+                      "id": "S2",
+                      "property": "visible",
+                      "value": false
+                    },
+                    {
+                      "id": "S3",
+                      "property": "visible",
+                      "value": false
+                    },
+                    {
+                      "id": "S4",
+                      "property": "visible",
+                      "value": false
+                    }
+                  ]
+                },
+                {
+                  "eventName": "questionnaire/clear-ensuing-values",
+                  "action": "questionnaire/clear-ensuing-values",
+                  "actionData": {
+                    "id": "PS4-A-Q1"
+                  }
+                }
+              ],
+              "summaryValueProvider": {
+                "type": "QuestionAnswerTemplate",
+                "questionAnswerTemplateData": [
+                  {
+                    "question": "$SubjectInfo1 had the opportunity to read and discuss information about genomic testing and agreed to the genomic test? ",
+                    "answer": "@@PS4-A-Q1:value:selectedValue",
+                    "skipIfNoAnswer": true
+                  },
+                  {
+                    "question": "Has research participation been discussed? ",
+                    "answer": "@@PS4-A-Q2:value:selectedValue",
+                    "skipIfNoAnswer": true
+                  },
+                  {
+                    "question": "The patient agrees that their data and samples may be used for research, separate to NHS care. ",
+                    "answer": "@@PS4-A-Q4:value:selectedValue",
+                    "skipIfNoAnswer": true
+                  }
+                ]
+              },
+              "item": []
+            },
+            {
+              "id": "P2S2",
+              "label": "Patient choices",
+              "type": "NGIS-PanelStep",
+              "summaryButtonAction": [],
+              "summaryValueProvider": {
+                "type": "QuestionAnswerTemplate",
+                "questionAnswerTemplateData": [
+                  {
+                    "question": "What is our name?",
+                    "answer": "Gollum"
+                  }
+                ]
+              },
+              "visibleWhen": [
+                {
+                    "elementId": "PS3-6A",
+                    "operator": "length=",
+                    "property":"rootProperty:uploadedFiles",
+                    "value": "0"
+                }
+              ],
+              "item": [
+                {
+                  "id": "P2-LBL1",
+                  "labelText": "Patient signature ",
+                  "type": "Label",
+                  "bold": true,
+                  "labelStyle": "header"
+                },
+                {
+                  "id": "P2-Sig1",
+                  "labelText": "Patient Signature",
+                  "type": "Signature"
+                },
+                {
+                  "id": "P2S2-B1",
+                  "labelText": "Submit Patient Choice",
+                  "type": "Button",
+                  "disabled": true,
+                  "actions": []
+                }
+              ]
+            },
+            {
+              "id": "P2S3",
+              "label": "Review and submit",
+              "type": "NGIS-PanelStep",
+              "visibleWhen": [
+                {
+                    "elementId": "PS3-6A",
+                    "operator": "length!=",
+                    "property":"rootProperty:uploadedFiles",
+                    "value": "0"
+                }
+              ],
+              "summaryButtonAction": [],
+              "summaryValueProvider": {
+                "type": "QuestionAnswerTemplate",
+                "questionAnswerTemplateData": [
+                  {
+                    "question": "Not shown. Review effect of empty data",
+                    "answer": "Not shown"
+                  }
+                ]
+              }
+              ,
+              "item": [
+                {
+                  "id": "P2S3-Al1",
+                  "alertType": "warning",
+                  "type": "Alert",
+                  "messages": [
+                    "By hitting submit you are confirming that either you have uploaded a valid record of discussion form and transcribed it correctly, or the clinical team has indicated that the patient has agreed to the test, but you are still awaiting a record of discussion form and will upload it when available."
+                    
+                  ]
+                },
+                {
+                  "id": "P2S3-B2",
+                  "labelText": "Submit Patient Choice",
+                  "type": "Button",
+                  "disabled": true,
+                  "actions": []
+                }
+              ]
+            }
+
+          ]
+        }
+      ]
+    },
+    {
+      "id": "S3",
+      "type": "Section",
+      "visible": false,
+      "current": "P3S2",
+      "item": [
+        {
+          "id": "P3",
+          "type": "NGIS-Panel",
+          "initialVisiblePanelSteps": [
+            "P3S1",
+            "P3S2",
+            "P3S3"
+          ],
+          "panelsteps": [
+            {
+              "id": "P3S1",
+              "label": "Patient choices",
+              "type": "NGIS-PanelStep",
+              "summaryButtonAction": [
+                {
+                  "eventName": "app/update-component-property",
+                  "action": "app/update-component-property",
+                  "actionData": [
+                    {
+                      "id": "S1",
+                      "property": "visible",
+                      "value": true
+                    },
+                    {
+                      "id": "S2",
+                      "property": "visible",
+                      "value": false
+                    },
+                    {
+                      "id": "S3",
+                      "property": "visible",
+                      "value": false
+                    },
+                    {
+                      "id": "S4",
+                      "property": "visible",
+                      "value": false
+                    }
+                  ]
+                },
+                {
+                  "eventName": "questionnaire/clear-ensuing-values",
+                  "action": "questionnaire/clear-ensuing-values",
+                  "actionData": {
+                    "id": "PS4-A-Q1"
+                  }
+                }
+              ],
+              "summaryValueProvider": {
+                "type": "QuestionAnswerTemplate",
+                "questionAnswerTemplateData": [
+                  {
+                    "question": "$SubjectInfo1 had the opportunity to read and discuss information about genomic testing and agreed to the genomic test? ",
+                    "answer": "@@PS4-A-Q1:value:selectedValue",
+                    "skipIfNoAnswer": true
+                  },
+                  {
+                    "question": "Has research participation been discussed? ",
+                    "answer": "@@PS4-A-Q2:value:selectedValue",
+                    "skipIfNoAnswer": true
+                  },
+                  {
+                    "question": "The patient agrees that their data and samples may be used for research, separate to NHS care. ",
+                    "answer": "@@PS4-A-Q4:value:selectedValue",
+                    "skipIfNoAnswer": true
+                  }
+                ]
+              },
+              "item": []
+            },
+            {
+              "id": "P3S2",
+              "label": "Child assent",
+              "type": "NGIS-PanelStep",
+              "displayedPanelStepId":5,
+              "summaryButtonAction": [{
+                "eventName": "ngis-panelstep/summaryclick",
+                "action": "ngis-panel/move-to-panel-step",
+                "data": {
+                  "stepId": "P3S2"
+                  }
+                },
+                {
+                  "eventName": "questionnaire/clear-ensuing-values",
+                  "action": "questionnaire/clear-ensuing-values",
+                  "actionData": {
+                    "id": "P3S2-Q1"
+                  }
+                }],
+              "summaryValueProvider": {
+                "type": "QuestionAnswerTemplate",
+                "questionAnswerTemplateData": [
+                  {
+                    "question": "Does the child agree to participate in research?",
+                    "answer": "@@P3S2-Q1:value:selectedValue"
+                  }
+                ]
+              },
+              "item": [
+                {
+                  "id": "P3S2-LBl1",
+                  "labelText": "Child assent ",
+                  "type": "Label",
+                  "bold": true,
+                  "labelStyle": "header"
+                },
+                {
+                  "id": "P3S2-Q1",
+                  "labelText": "Does the child agree to participate in research?",
+                  "type": "NGIS-RadioButton",
+                  "required": true,
+                  "readOnly": false,
+                  "initialValue": null,
+                  "optionsOrientation": "Horizontal",
+                  "options": [
+                    {
+                      "label": "Yes",
+                      "value": "Yes",
+                      "disabled": false
+                    },
+                    {
+                      "label": "No",
+                      "value": "No",
+                      "disabled": false
+                    },
+                    {
+                      "label": "Not applicable",
+                      "value": "Not applicable",
+                      "disabled": false
+                    }
+                  ],
+                  "actions": [
+                    {
+                      "eventName": "questionnaire/clear-values",
+                      "action": "questionnaire/clear-values",
+                      "actionData": {
+                        "items": [
+                          "P3S2-LBL2",
+                          "P3S2-Sig1"
+                        ]
+                      }
+                    }
+                  ]
+                },
+                {
+                  "id": "P3S2-LBL2",
+                  "labelText": "Child Signature ",
+                  "type": "Label",
+                  "bold": true,
+                  "labelStyle": "header",
+                  "visibleWhen": [
+                    "AND",
+                    {
+                      "elementId": "P3S2-Q1",
+                      "operator": "=",
+                      "property": "selectedValue",
+                      "value": "Yes"
+                    },
+                    {
+                      "elementId": "PS3-6A",
+                      "operator": "length=",
+                      "property":"rootProperty:uploadedFiles",
+                      "value": "0"
+                    }
+                  ]
+                },
+                {
+                  "id": "P3S2-Sig1",
+                  "labelText": "Child Signature",
+                  "type": "Signature",
+                  "visibleWhen": [
+                    "AND",
+                    {
+                      "elementId": "P3S2-Q1",
+                      "operator": "=",
+                      "property": "selectedValue",
+                      "value": "Yes"
+                    },
+                    {
+                      "elementId": "PS3-6A",
+                      "operator": "length=",
+                      "property":"rootProperty:uploadedFiles",
+                      "value": "0"
+                    }
+                  ]
+                },
+                {
+                  "id": "P3S2-B1",
+                  "labelText": "Continue",
+                  "type": "Button",
+                  "disabled": false,
+                  "enableWhen": [
+                    "OR",
+                    [
+                      "AND",
+                      {
+                        "elementId": "PS3-6A",
+                        "operator": "length=",
+                        "property":"rootProperty:uploadedFiles",
+                        "value": "0"
+                      },
+                      {
+                        "elementId": "P3S2-Q1",
+                        "operator": "=",
+                        "property": "selectedValue",
+                        "value": "Yes"
+                      },
+                      {
+                        "elementId": "P3S2-Sig1",
+                        "operator": "notnull",
+                        "property": "rootProperty:value",
+                        "value": null
+                      }
+                    ],
+                    [
+                      "AND",
+                      {
+                        "elementId": "PS3-6A",
+                        "operator": "length=",
+                        "property":"rootProperty:uploadedFiles",
+                        "value": "0"
+                      },
+                      {
+                        "elementId": "P3S2-Q1",
+                        "operator": "contains",
+                        "property": "selectedIndex",
+                        "value": ["1","2"]
+                      }
+                    ],
+                    [
+                      "AND",
+                      {
+                        "elementId": "PS3-6A",
+                        "operator": "length!=",
+                        "property":"rootProperty:uploadedFiles",
+                        "value": "0"
+                      },
+                      {
+                        "elementId": "P3S2-Q1",
+                        "operator": "contains",
+                        "property": "selectedIndex",
+                        "value": ["0","1","2"]
+                      }
+
+                    ]
+                    
+                  ],
+                  "actions": [
+                    {
+                      "eventName": "ngis-panel/move-to-panel-step",
+                      "action": "ngis-panel/move-to-panel-step",
+                      "actionData": {
+                        "parentPanelId": "P3",
+                        "panelIndex": "P3S3",
+                        "condition":[
+                          {
+                            "elementId": "PS3-6A",
+                            "operator": "length=",
+                            "property":"rootProperty:uploadedFiles",
+                            "value": "0"
+                          }
+                        ]
+                      }
+                    },
+                    {
+                      "eventName": "ngis-panel/move-to-panel-step",
+                      "action": "ngis-panel/move-to-panel-step",
+                      "actionData": {
+                        "parentPanelId": "P3",
+                        "panelIndex": "P3S4",
+                        "condition":[
+                          {
+                            "elementId": "PS3-6A",
+                            "operator": "length!=",
+                            "property":"rootProperty:uploadedFiles",
+                            "value": "0"
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "id": "P3S3",
+              "label": "Parent/Guardian signature",
+              "type": "NGIS-PanelStep",
+              "visibleWhen": [
+                {
+                    "elementId": "PS3-6A",
+                    "operator": "length=",
+                    "property":"rootProperty:uploadedFiles",
+                    "value": "0"
+                }
+              ],
+              "displayedPanelStepId":6,
+              "summaryButtonAction": [],
+              "summaryValueProvider": {
+                "type": "QuestionAnswerTemplate",
+                "questionAnswerTemplateData": [
+                  {
+                    "question": "What is our name?",
+                    "answer": "Gollum"
+                  }
+                ]
+              },
+              "item": [
+                {
+                  "id": "P3S3-VS-1",
+                  "type": "ValidationSummary",
+                  "validationGroupId": "P3S3"
+                },
+                {
+                  "id": "P3S3-LBl1",
+                  "labelText": "Parent/Guardian signature ",
+                  "type": "Label",
+                  "bold": true,
+                  "labelStyle": "header"
+                },
+                {
+                  "id": "P3S3-L1",
+                  "type": "Layout",
+                  "layoutMode": "Horizontal",
+                  "item": [
+                    {
+                  "id": "P3S3-INP1",
+                  "labelText": "Parent/Guardian first name",
+                  "text": "Current value",
+                  "type": "NGIS-TextInput",
+                  "required": true,
+                  "requiredIcon": true,
+                  "readOnly": false,
+                  "maxLength": 100,
+                  "placeholder": "",
+                  "initial": "",
+                  "labelOrientation": "top"
+                	},
+                    {
+                  "id": "P3S3-INP2",
+                  "labelText": "Parent/Guardian last name",
+                  "text": "Current value",
+                  "type": "NGIS-TextInput",
+                  "required": true,
+                  "requiredIcon": true,
+                  "readOnly": false,
+                  "maxLength": 100,
+                  "placeholder": "",
+                  "initial": "",
+                  "labelOrientation": "top"
+                }
+                  ]
+                }
+                ,
+                {
+                  "id": "P3S3-LBL2",
+                  "labelText": "Parent/Guardian signature ",
+                  "type": "Label",
+                  "bold": true,
+                  "labelStyle": "header"
+                },
+                {
+                  "id": "P3S3-Sig1",
+                  "labelText": "Parent/Guardian signature",
+                  "type": "Signature"
+                },
+                {
+                  "id": "P3S3-B1",
+                  "labelText": "Submit Patient Choice",
+                  "type": "Button",
+                  "disabled": false,
+                  "actions": [
+                    {
+                      "eventName": "button/validate",
+                      "action": "validator/validate",
+                      "actionData": {
+                        "validatorId": [
+                          "P3S3-V1"
+                        ]
+                      }
+                    }
+                  ]
+                },
+                {
+                  "id": "P3S3-V1",
+                  "type": "Validator",
+                  "validationGroup": "P3S3",
+                  "validationData": [
+                    {
+                      "type": "required",
+                      "targetItemId": "P3S3-INP1",
+                      "validationMessage": "Please ensure the Parent/Guardian first name is completed "
+                    },
+                    {
+                      "type": "required",
+                      "targetItemId": "P3S3-INP2",
+                      "validationMessage": "Please ensure the Parent/Guardian last name is completed "
+                    },
+                    {
+                      "type": "required",
+                      "targetItemId": "P3S3-Sig1",
+                      "validationMessage": "Please ensure the Parent/Guardian signature is completed "
+                    }                    
+                  ]
+                }
+              ]
+            },
+            {
+              "id": "P3S4",
+              "label": "Review and submit",
+              "displayedPanelStepId":6,
+              "type": "NGIS-PanelStep",
+              "visibleWhen": [
+                {
+                    "elementId": "PS3-6A",
+                    "operator": "length!=",
+                    "property":"rootProperty:uploadedFiles",
+                    "value": "0"
+                }
+              ],
+              "summaryButtonAction": [],
+              "summaryValueProvider": {
+                "type": "QuestionAnswerTemplate",
+                "questionAnswerTemplateData": [
+                  {
+                    "question": "Not shown. Review effect of empty data",
+                    "answer": "Not shown"
+                  }
+                ]
+              },
+              "item": [
+                {
+                  "id": "P3S4-Al1",
+                  "alertType": "warning",
+                  "type": "Alert",
+                  "messages": [
+                    "By hitting submit you are confirming that either you have uploaded a valid record of discussion form and transcribed it correctly, or the clinical team has indicated that the patient has agreed to the test, but you are still awaiting a record of discussion form and will upload it when available."
+                  ]
+                },
+                {
+                  "id": "P3S4-B2",
+                  "labelText": "Submit Patient Choice",
+                  "type": "Button",
+                  "disabled": true,
+                  "actions": []
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "S4",
+      "type": "Section",
+      "visible": false,
+      "item": [
+        {
+          "id": "P4",
+          "type": "NGIS-Panel",
+          "initialVisiblePanelSteps": [
+            "P4S1",
+            "P4S2"
+          ],
+          "panelsteps": [
+            {
+              "id": "P4S1",
+              "label": "Patient choices",
+              "type": "NGIS-PanelStep",
+              "summaryButtonAction": [
+                {
+                  "eventName": "app/update-component-property",
+                  "action": "app/update-component-property",
+                  "actionData": [
+                    {
+                      "id": "S1",
+                      "property": "visible",
+                      "value": true
+                    },
+                    {
+                      "id": "S2",
+                      "property": "visible",
+                      "value": false
+                    },
+                    {
+                      "id": "S3",
+                      "property": "visible",
+                      "value": false
+                    },
+                    {
+                      "id": "S4",
+                      "property": "visible",
+                      "value": false
+                    }
+                  ]
+                },
+                {
+                  "eventName": "questionnaire/clear-ensuing-values",
+                  "action": "questionnaire/clear-ensuing-values",
+                  "actionData": {
+                    "id": "PS4-A-Q1"
+                  }
+                }
+              ],
+              "summaryValueProvider": {
+                "type": "QuestionAnswerTemplate",
+                "questionAnswerTemplateData": [
+                  {
+                    "question": "$SubjectInfo1 had the opportunity to read and discuss information about genomic testing and agreed to the genomic test? ",
+                    "answer": "@@PS4-A-Q1:value:selectedValue",
+                    "skipIfNoAnswer": true
+                  },
+                  {
+                    "question": "Has research participation been discussed? ",
+                    "answer": "@@PS4-A-Q2:value:selectedValue",
+                    "skipIfNoAnswer": true
+                  },
+                  {
+                    "question": "The consultee agrees that their data and samples may be used for research, separate to NHS care. ",
+                    "answer": "@@PS4-A-Q4:value:selectedValue",
+                    "skipIfNoAnswer": true
+                  }
+                ]
+              },
+              "item": []
+            },
+            {
+              "id": "P4S2",
+              "label": "Consultee attestation",
+              "type": "NGIS-PanelStep",
+              "displayedPanelStepId":5,
+              "summaryButtonAction": [{
+                "eventName": "ngis-panelstep/summaryclick",
+                "action": "ngis-panel/move-to-panel-step",
+                "data": {
+                  "stepId": "P4S2"
+                  }
+                },
+                {
+                  "eventName": "questionnaire/clear-ensuing-values",
+                  "action": "questionnaire/clear-ensuing-values",
+                  "actionData": {
+                    "id": "P4S2-Q1"
+                  }
+                }
+              ],
+              "summaryValueProvider": {
+                "type": "QuestionAnswerTemplate",
+                "questionAnswerTemplateData": [
+                  {
+                    "question": "",
+                    "answer": ""
+                  }
+                ]
+              },
+              "item": [
+                {
+                  "id": "P4S2-LBl1",
+                  "labelText": "Consultee attestation ",
+                  "type": "Label",
+                  "bold": true,
+                  "labelStyle": "header"
+                },
+                {
+                  "id": "P4S2-Q1",
+                  "labelText": "I have had the opportunity to read and discuss information about being a consultee for the person who lacks capacity",
+                  "type": "NGIS-RadioButton",
+                  "required": true,
+                  "readOnly": false,
+                  "initialValue": null,
+                  "optionsOrientation": "Horizontal",
+                  "options": [
+                    {
+                      "label": "Yes",
+                      "value": "Yes",
+                      "disabled": false
+                    },
+                    {
+                      "label": "No",
+                      "value": "No",
+                      "disabled": false
+                    },
+                    {
+                      "label": "Not applicable",
+                      "value": "Not applicable",
+                      "disabled": false
+                    }
+                  ],
+                  "actions": [
+                    {
+                      "eventName": "questionnaire/clear-values",
+                      "action": "questionnaire/clear-values",
+                      "actionData": {
+                        "items": [
+                          "P4S2-Q3"
+                        ]
+                      }
+                    }
+                  ]
+                },
+                {
+                  "id": "P4S2-Q2",
+                  "labelText": "I have been consulted about this person's participation in the National Genomic Research Library.",
+                  "type": "NGIS-RadioButton",
+                  "required": true,
+                  "readOnly": false,
+                  "initialValue": null,
+                  "optionsOrientation": "Horizontal",
+                  "options": [
+                    {
+                      "label": "Yes",
+                      "value": "Yes",
+                      "disabled": false
+                    },
+                    {
+                      "label": "No",
+                      "value": "No",
+                      "disabled": false
+                    },
+                    {
+                      "label": "Not applicable",
+                      "value": "Not applicable",
+                      "disabled": false
+                    }
+                  ],
+                  "actions": [
+                    {
+                      "eventName": "questionnaire/clear-values",
+                      "action": "questionnaire/clear-values",
+                      "actionData": {
+                        "items": [
+                          "P4S2-Q3"
+                        ]
+                      }
+                    }
+                  ]
+                },
+                {
+                  "id": "P4S2-Q3",
+                  "labelText": "I am willing to accept the role of consultee for this person.",
+                  "type": "NGIS-RadioButton",
+                  "required": true,
+                  "readOnly": false,
+                  "initialValue": null,
+                  "optionsOrientation": "Horizontal",
+                  "options": [
+                    {
+                      "label": "Yes",
+                      "value": "Yes",
+                      "disabled": false
+                    },
+                    {
+                      "label": "No",
+                      "value": "No",
+                      "disabled": false
+                    }
+                  ],
+                  "visibleWhen": [
+                    "AND",
+                    {
+                      "elementId": "P4S2-Q1",
+                      "operator": "=",
+                      "property": "selectedValue",
+                      "value": "Yes"
+                    },
+                    {
+                      "elementId": "P4S2-Q2",
+                      "operator": "=",
+                      "property": "selectedValue",
+                      "value": "Yes"
+                    }
+                  ]
+                },
+                {
+                  "id": "P4S2-B1",
+                  "labelText": "Continue",
+                  "type": "Button",
+                  "disabled": false,
+                  "actions": [
+                    {
+                      "eventName": "ngis-panel/move-to-panel-step",
+                      "action": "ngis-panel/move-to-panel-step",
+                      "actionData": {
+                        "parentPanelId": "P4",
+                        "panelIndex": "P4S3",
+                        "condition": [
+                          {
+                            "elementId": "PS3-6A",
+                            "operator": "length=",
+                            "property":"rootProperty:uploadedFiles",
+                            "value": "0"
+                          }
+                        ]
+                      }
+                    },
+                    {
+                      "eventName": "ngis-panel/move-to-panel-step",
+                      "action": "ngis-panel/move-to-panel-step",
+                      "actionData": {
+                        "parentPanelId": "P4",
+                        "panelIndex": "P4S4",
+                        "condition": [
+                          {
+                            "elementId": "PS3-6A",
+                            "operator": "length!=",
+                            "property":"rootProperty:uploadedFiles",
+                            "value": "0"
+                          }
+                        ]
+                      }
+                    }
+                    
+                  ],
+                  "enableWhen": [
+                    "OR",
+                    [
+                      "AND",
+                      {
+                        "elementId": "P4S2-Q1",
+                        "operator": "contains",
+                        "property": "selectedIndex",
+                        "value": ["0"]
+                      },
+                      {
+                        "elementId": "P4S2-Q2",
+                        "operator": "contains",
+                        "property": "selectedIndex",
+                        "value": ["0"]
+                      },
+                      {
+                        "elementId": "P4S2-Q3",
+                        "operator": "contains",
+                        "property": "selectedIndex",
+                        "value": ["0","1"]
+                      }
+
+                    ],
+                    [
+                      "AND",
+                      {
+                        "elementId": "P4S2-Q1",
+                        "operator": "contains",
+                        "property": "selectedIndex",
+                        "value": ["0"]
+                      },
+                      {
+                        "elementId": "P4S2-Q2",
+                        "operator": "contains",
+                        "property": "selectedIndex",
+                        "value": ["1","2"]
+                      }
+                    ],
+                    [
+                      "AND",
+                      {
+                        "elementId": "P4S2-Q1",
+                        "operator": "contains",
+                        "property": "selectedIndex",
+                        "value": ["1","2"]
+                      },
+                      {
+                        "elementId": "P4S2-Q2",
+                        "operator": "contains",
+                        "property": "selectedIndex",
+                        "value": ["0","1","2"]
+                      }
+
+
+                    ]
+                  ]
+                }
+              ]
+            },
+            {
+              "id": "P4S3",
+              "label": "Consultee signature",
+              "displayedPanelStepId":6,
+              "type": "NGIS-PanelStep",
+              "visibleWhen": [
+                {
+                    "elementId": "PS3-6A",
+                    "operator": "length=",
+                    "property":"rootProperty:uploadedFiles",
+                    "value": "0"
+                }
+              ],
+              "summaryButtonAction": [],
+              "summaryValueProvider": {
+                "type": "QuestionAnswerTemplate",
+                "questionAnswerTemplateData": [
+                  {
+                    "question": "What is our name?",
+                    "answer": "Gollum"
+                  }
+                ]
+              },
+              "item": [
+                {
+                  "id": "P4S4-LBl1",
+                  "labelText": "Consultee signature ",
+                  "type": "Label",
+                  "bold": true,
+                  "labelStyle": "header"
+                },
+                {
+                  "id": "P4S4-L1",
+                  "type": "Layout",
+                  "layoutMode": "Horizontal",
+                  "item": [
+                    {
+                      "id": "P4S4-Q1",
+                      "labelText": "Consultee first name",
+                      "text": "Current value",
+                      "type": "NGIS-TextInput",
+                      "required": true,
+                      "readOnly": false,
+                      "maxLength": 100,
+                      "placeholder": "",
+                      "initial": "",
+                      "labelOrientation": "top"
+                    },
+                    {
+                      "id": "P4S4-Q2",
+                      "labelText": "Consultee last name",
+                      "text": "Current value",
+                      "type": "NGIS-TextInput",
+                      "required": true,
+                      "readOnly": false,
+                      "maxLength": 100,
+                      "placeholder": "",
+                      "initial": "",
+                      "labelOrientation": "top"
+                    }
+                  ]
+                },
+                {
+                  "id": "P4S3-Sig1",
+                  "labelText": "Consultee signature",
+                  "type": "Signature"
+                },
+                {
+                  "id" : "P4S4-F1", 
+                  "type" : "Flexbox", 
+                  "containerStyle": [
+                      "display:flex",
+                      "flexDirection:row-reverse"
+                  ],
+                  "item" : [
+                    {
+                      "id": "P4S3-B1",
+                      "labelText": "Submit Patient Choice",
+                      "type": "Button",
+                      "disabled": true,
+                      "actions": []
+                    }
+                  ]
+                }             
+              ]
+            },
+            {
+              "id": "P4S4",
+              "label": "Review and submit",
+              "type": "NGIS-PanelStep",
+              "visibleWhen": [
+                {
+                    "elementId": "PS3-6A",
+                    "operator": "length!=",
+                    "property":"rootProperty:uploadedFiles",
+                    "value": "0"
+                }
+              ],
+              "summaryButtonAction": [],
+              "summaryValueProvider": {
+                "type": "QuestionAnswerTemplate",
+                "questionAnswerTemplateData": [
+                  {
+                    "question": "Not shown. Review effect of empty data",
+                    "answer": "Not shown"
+                  }
+                ]
+              },
+              "item": [
+                {
+                  "id": "P4S4-Al1",
+                  "alertType": "warning",
+                  "type": "Alert",
+                  "messages": [
+                    "By hitting submit you are confirming that either you have uploaded a valid record of discussion form and transcribed it correctly, or the clinical team has indicated that the patient has agreed to the test, but you are still awaiting a record of discussion form and will upload it when available."
+                  ]
+                },
+                {
+                  "id" : "P4S4-F2", 
+                  "type" : "Flexbox", 
+                  "containerStyle": [
+                      "display:flex",
+                      "flexDirection:row-reverse"
+                  ],
+                  "item" : [
+                    {
+                      "id": "P4S4-B2",
+                      "labelText": "Submit Patient Choice",
+                      "type": "Button",
+                      "disabled": true,
+                      "actions": []
+                    }
+                  ]
+                }
+                
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
